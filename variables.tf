@@ -5,37 +5,37 @@ variable "aws_region" {
 }
 
 variable "aws_instance_type" {
-  description = "AWS Instance type"
+  description = "Access Server EC2 instance type"
   type        = string
   default     = "t3.small"  # Replace with your desired AWS instance type
 }
 
 variable "vpc_id" {
-  description = "The ID of the VPC to deploy resources"
+  description = "ID of your existing Virtual Private Cloud (VPC)"
   type        = string
   default     = "vpc-d08f5daa"  # Replace with your actual VPC ID
 }
 
 variable "subnet_id" {
-  description = "The ID of the Subnet to deploy resources"
+  description = "ID of your existing Subnet"
   type        = string
   default     = "subnet-c4ac21ea"  # Replace with your actual Subnet ID
 }
 
 variable "key_name" {
-  description = "The name of the SSH key to use for the instance"
+  description = "Name of an existing EC2 KeyPair to enable SSH access to the instance"
   type        = string
-  default     = "Brandon-SSH"  # Replace with your actual SSH Key uploaded to AWS Console
+  default     = "OpenVPNAS-SSH"  # Replace with your actual SSH Key uploaded to AWS Console
 }
 
 variable "admin_username" {
   description = "The OpenVPN Access Server admin username"
   type        = string
-  default     = "terraform_admin"  # Replace with your desired OpenVPN admin username
+  default     = "admin1"  # Replace with your desired OpenVPN admin username
 }
 
 variable "admin_password" {
   description = "The OpenVPN Access Server admin password"
   type        = string
-  default     = "terraform_admin123"  # Replace with your desired OpenVPN admin password
+  default     = "p@$w0rd"  # Replace with your desired OpenVPN admin password
 }
