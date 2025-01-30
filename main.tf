@@ -5,8 +5,8 @@ provider "aws" {
 }
 
 # Create a security group to allow SSH access
-resource "aws_security_group" "OpenVPN-Access-Server_SecurityGroup" {
-  name        = "OpenVPN-Access-Server_SecurityGroup"
+resource "aws_security_group" "AccessServerSecurityGroup" {
+  name        = "AccessServerSecurityGroup"
   description = "Enable needed access to Access Server"
   vpc_id      = var.vpc_id
   
@@ -53,24 +53,24 @@ resource "aws_security_group" "OpenVPN-Access-Server_SecurityGroup" {
   }
 }
 
-# Fetch the AMI for the desired Marketplace image
-data "aws_ami" "marketplace_image" {
+# Fetch the AMI for the desired image
+data "aws_ami" "ubuntu24_image" {
   most_recent = true
-  owners      = ["679593333241"]
+  owners      = ["099720109477"]
   
   filter {
     name   = "name"
-    values = ["OpenVPN Access Server Community Image-fe8020db-5343-4c43-9e65-5ed4a825c931"]  # Replace with the actual Marketplace image name
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server*"]  # Replace with the actual Marketplace image name
   }
 }
 
-# Create the EC2 instance from the Marketplace image
-resource "aws_instance" "OpenVPN-Access-Server_Terraform" {
-  ami               = data.aws_ami.marketplace_image.id
+# Create the EC2 instance with Ubuntu 24.04 LTS AMD64
+resource "aws_instance" "OpenVPNAccessServer_Terraform" {
+  ami               = data.aws_ami.ubuntu24_image.id
   instance_type     = var.aws_instance_type
   subnet_id         = var.subnet_id
   key_name          = var.key_name
-  security_groups   = [aws_security_group.OpenVPN-Access-Server_SecurityGroup.id]
+  security_groups   = [aws_security_group.AccessServerSecurityGroup.id]
 
   # Metadata options
   metadata_options {
@@ -80,24 +80,33 @@ resource "aws_instance" "OpenVPN-Access-Server_Terraform" {
   
   user_data = <<-EOF
     #!/bin/bash
+    bash <(curl -fsS https://packages.openvpn.net/as/install.sh | sed 's/PLIST\\x3d\"openvpn-as\"/PLIST\\x3d\"openvpn-as\\x3d2.14.2*\"/') --yes
+    ovpn-init --ec2 --batch --force
+    while [ ! -S /usr/local/openvpn_as/etc/sock/sagent ]; do
+    sleep 1
+    done
     admin_pw=${var.admin_password}
     admin_user=${var.admin_username}
+    /usr/local/openvpn_as/scripts/sacli -k 'vpn.server.daemon.ovpndco' -v 'true' ConfigPut
+    /usr/local/openvpn_as/scripts/sacli start
+    exit 0
   EOF
+
   
   tags = {
-    Name = "OpenVPN-Access-Server_Terraform"
+    Name = "OpenVPNAccessServer_Terraform"
   }
 }
 
 # Outputs
 output "openvpnas_admin_ui" {
   description = "OpenVPN Access Server Admin WebGUI URL"
-  value       = "https://${aws_instance.OpenVPN-Access-Server_Terraform.public_ip}:943/admin"
+  value       = "https://${aws_instance.OpenVPNAccessServer_Terraform.public_ip}:943/admin"
 }
 
 output "openvpnas_client_ui" {
   description = "OpenVPN Access Server Client WebGUI URL"
-  value       = "https://${aws_instance.OpenVPN-Access-Server_Terraform.public_ip}:943"
+  value       = "https://${aws_instance.OpenVPNAccessServer_Terraform.public_ip}:943"
 }
 
 output "openvpnas_user" {
