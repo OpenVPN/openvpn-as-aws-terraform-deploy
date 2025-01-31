@@ -24,8 +24,11 @@ The key variables include:
 ## Project Structure
 
 ```bash
-.
-├── README.md                # Project documentation
-├── main.tf                  # VPC, Subnet, Security Group setup, Base image configuration, and User Data
-├── variables.tf             # Input variables
+├── README.md               # Project documentation
+├── ami.tf                  # Base image configuration
+├── outputs.tf              # Outputs from Admin credentials, Admin UI, and Client UI URLs
+├── provider.tf             # Provider info
+├── security_groups.tf      # VPC and Security Group setup
+├── user_data.tf            # Subnet and User Data setup
+├── variables.tf            # Input variables
 ```
