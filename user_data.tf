@@ -14,7 +14,7 @@ resource "aws_instance" "OpenVPNAccessServer_Terraform" {
   
   user_data = <<-EOF
     #!/bin/bash
-    bash <(curl -fsS https://packages.openvpn.net/as/install.sh | sed 's/PLIST\\x3d\"openvpn-as\"/PLIST\\x3d\"openvpn-as\\x3d2.14.2*\"/') --yes
+    bash <(curl -fsS https://packages.openvpn.net/as/install.sh) --as-version=2.14.3 --yes
     ovpn-init --ec2 --batch --force
     while [ ! -S /usr/local/openvpn_as/etc/sock/sagent ]; do
     sleep 1
