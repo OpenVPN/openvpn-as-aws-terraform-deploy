@@ -32,3 +32,9 @@ The key variables include:
 ├── user_data.tf            # Subnet and User Data setup
 ├── variables.tf            # Input variables
 ```
+
+## Contact support
+
+You can contact the support team for OpenVPN Access Server here:
+
+https://support.openvpn.com/hc/en-us/categories/360006075631-Access-Server⁠
