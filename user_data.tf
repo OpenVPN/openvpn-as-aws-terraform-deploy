@@ -14,7 +14,7 @@ resource "aws_instance" "OpenVPNAccessServer_Terraform" {
   
   user_data = <<-EOF
     #!/bin/bash
-    bash <(curl -fsS https://packages.openvpn.net/as/install.sh) --as-version=3.0.2 --yes
+    bash <(curl -fsS https://packages.openvpn.net/as/install.sh) --as-version=3.1.0 --yes
     admin_user=${var.admin_username}
     admin_pw=${var.admin_password}
   EOF
