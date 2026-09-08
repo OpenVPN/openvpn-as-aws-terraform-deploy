@@ -39,3 +39,15 @@ variable "admin_password" {
   type        = string
   default     = "p@$w0rd"  # Replace with your desired OpenVPN admin password
 }
+
+variable "enable_lets_encrypt" {
+  description = "Whether to automatically request and install a Let's Encrypt TLS certificate for the Access Server once it boots"
+  type        = bool
+  default     = true
+}
+
+variable "use_static_public_ip" {
+  description = "Whether to allocate a static Elastic IP (recommended) for the Access Server instead of relying on AWS's dynamic auto-assigned public IP, which can change across stop/start cycles"
+  type        = bool
+  default     = true
+}

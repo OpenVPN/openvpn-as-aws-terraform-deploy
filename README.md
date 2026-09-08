@@ -20,12 +20,15 @@ The key variables include:
 - `key_name`: SSH key to access the instance.
 - `admin_username`: The OpenVPN Access Server admin username.
 - `admin_password`: The OpenVPN Access Server admin password.
+- `enable_lets_encrypt`: Automatically request a Let's Encrypt TLS certificate on boot (`true`).
+- `use_static_public_ip`: Allocate a static Elastic IP instead of a dynamic auto-assigned public IP (`true`).
 
 ## Project Structure
 
 ```bash
 ├── README.md               # Project documentation
 ├── ami.tf                  # Base image configuration
+├── eip.tf                  # Static Elastic IP (when use_static_public_ip is true)
 ├── outputs.tf              # Outputs from Admin credentials, Admin UI, and Client UI URLs
 ├── provider.tf             # Provider info
 ├── security_groups.tf      # VPC and Security Group setup
