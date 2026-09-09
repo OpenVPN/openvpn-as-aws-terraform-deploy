@@ -10,13 +10,6 @@ resource "aws_security_group" "AccessServerSecurityGroup" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
-  ingress {
-    from_port   = 945
-    to_port     = 945
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   ingress {
     from_port   = 443
