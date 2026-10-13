@@ -1,6 +1,6 @@
-# Create the EC2 instance with Ubuntu 24.04 LTS AMD64
+# Create the EC2 instance with Ubuntu 26.04 LTS AMD64
 resource "aws_instance" "OpenVPNAccessServer_Terraform" {
-  ami                         = data.aws_ami.ubuntu24_image.id
+  ami                         = data.aws_ami.ubuntu26_image.id
   instance_type               = var.aws_instance_type
   subnet_id                   = var.subnet_id
   key_name                    = var.key_name
