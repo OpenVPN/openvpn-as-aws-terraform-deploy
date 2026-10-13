@@ -48,8 +48,6 @@ resource "aws_instance" "OpenVPNAccessServer_Terraform" {
     exit 0
     admin_user=${var.admin_username}
     admin_pw=${var.admin_password}
-    reroute_gw=1
-    reroute_dns=1
   EOF
 
   tags = {
