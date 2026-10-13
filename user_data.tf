@@ -17,7 +17,7 @@ resource "aws_instance" "OpenVPNAccessServer_Terraform" {
     #!/bin/bash
     echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
     dpkg-reconfigure -f noninteractive unattended-upgrades
-    OVPN_INIT_MANUAL=true bash <(curl -fsS https://packages.openvpn.net/as/install.sh) --as-version=3.2.2 --yes
+    OVPN_INIT_MANUAL=true bash <(curl -fsS https://packages.openvpn.net/as/install.sh) --as-version=3.2.3 --yes
     ovpn-init --ec2 --batch --force
     apt-mark hold openvpn-as
     . /usr/local/openvpn_as/etc/VERSION
