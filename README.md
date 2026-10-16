@@ -14,7 +14,7 @@ This Terraform project automates the deployment of an **OpenVPN Access Server**.
 The key variables include:
 
 - `aws_region`: The region where resources will be deployed (`us-east-1`).
-- `aws_instance_type`: EC2 instance type (`t3-small`).
+- `aws_instance_type`: EC2 instance type (`t3.small`).
 - `vpc_id`: ID of your existing Virtual Private Cloud (VPC).
 - `subnet_id`: ID of your existing Subnet.
 - `key_name`: SSH key to access the instance.
